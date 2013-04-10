@@ -1,0 +1,44 @@
+[user]
+	name = Bob Yexley
+	email = bob@yexley.net
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[color "branch"]
+	current = red bold
+	local = normal
+	remote = yellow bold
+	plain = normal
+[color "status"]
+	header = normal
+	added = red bold
+	updated = green bold
+	changed = cyan bold
+	untracked = cyan bold
+	nobranch = red bold
+[core]
+	excludesfile = ~/.gitignore
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+	tool = Kaleidoscope
+[difftool]
+	prompt = false
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false
+[merge]
+	tool = Kaleidoscope
+[alias]
+	st = status -sb
+	cam = commit -am
+	br = branch
+	co = checkout
+	dt = difftool
+	lg = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author 'Bob Yexley'
+	pullr = pull --rebase
+	startover = reset -hard HEAD

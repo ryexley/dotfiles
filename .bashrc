@@ -17,7 +17,13 @@ rvm use 1.9.3
 nvm use 0.10.0
 
 # Shell prompt (see http://blog.twistedcode.org/2008/03/customizing-your-bash-prompt.html)
-PS1='\[\033[0;36m\]\u\[\033[01;34m\] @ \[\033[0;36m\]\h \[\033[01;34m\]{ \[\033[01;34m\]\w \[\033[00;34m\]}\[\033[01;32m\] -> \[\033[00m\]'
+# PS1='\[\033[0;36m\]\u\[\033[01;34m\] @ \[\033[0;36m\]\h \[\033[01;34m\]{ \[\033[01;34m\]\w \[\033[00;34m\]}\[\033[01;32m\] -> \[\033[00m\]'
+
+function _update_ps1() {
+	export PS1="$(~/powerline-shell.py $?) "
+}
+
+export PROMPT_COMMAND="_update_ps1"
 
 # Aliases
 alias ls="ls -la"
