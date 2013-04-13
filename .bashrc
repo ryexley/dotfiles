@@ -37,3 +37,9 @@ alias intm="cd ~/Projects/purdue/intermezzo/source/client-purdue-intermezzo"
 alias hem="cd ~/Projects/hemlock"
 alias hems="cd ~/Projects/hemlock/hemlock.server"
 alias hemc="cd ~/Projects/hemlock/hemlock.client"
+
+# Functions
+
+function npmls () {
+	npm ls "$@" | grep ^[└├]
+}
