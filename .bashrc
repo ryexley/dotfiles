@@ -14,7 +14,7 @@ rvm use 1.9.3
 [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
 
 # Set the node.js version to use with NVM
-nvm use 0.10.4
+nvm use 0.10
 
 # Shell prompt (see http://blog.twistedcode.org/2008/03/customizing-your-bash-prompt.html)
 # PS1='\[\033[0;36m\]\u\[\033[01;34m\] @ \[\033[0;36m\]\h \[\033[01;34m\]{ \[\033[01;34m\]\w \[\033[00;34m\]}\[\033[01;32m\] -> \[\033[00m\]'
