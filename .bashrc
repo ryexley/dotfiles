@@ -16,8 +16,15 @@ rvm use 1.9.3
 # Set the node.js version to use with NVM
 nvm use 0.10
 
+# increase the default open files limit
+ulimit -n 2048
+
 # Shell prompt (see http://blog.twistedcode.org/2008/03/customizing-your-bash-prompt.html)
 # PS1='\[\033[0;36m\]\u\[\033[01;34m\] @ \[\033[0;36m\]\h \[\033[01;34m\]{ \[\033[01;34m\]\w \[\033[00;34m\]}\[\033[01;32m\] -> \[\033[00m\]'
+
+if [ -f ~/.dotfiles/.git-completion.bash ]; then
+    . ~/.dotfiles/.git-completion.bash
+fi
 
 function _update_ps1() {
 	export PS1="$(~/powerline-shell.py $?) "
@@ -37,6 +44,8 @@ alias intm="cd ~/Projects/purdue/intermezzo/source/client-purdue-intermezzo"
 alias hem="cd ~/Projects/hemlock"
 alias hems="cd ~/Projects/hemlock/hemlock.server"
 alias hemc="cd ~/Projects/hemlock/hemlock.client"
+alias len="cd ~/Projects/appendto/lenovo/prototype-2"
+alias hub="cd ~/Projects/pitney-bowes/hubble"
 
 # Functions
 
