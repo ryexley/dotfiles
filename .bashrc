@@ -5,16 +5,20 @@ export PATH=/usr/local/git/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr
 PATH=$PATH:$HOME/.rvm/bin
 
 # Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+if [ -f "$HOME/.rvm/scripts/rvm" ]; then
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-# Set the Ruby version to use (because the default doesn't seem to be "sticking" for some reason)
-rvm use 1.9.3
+    # Set the Ruby version to use (because the default doesn't seem to be "sticking" for some reason)
+    rvm use 1.9.3
+fi
 
 # Load NVM into a shell session *as a function*
-[[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
+if [ -f "$HOME/.nvm/nvm.sh" ]; then
+    [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
 
-# Set the node.js version to use with NVM
-nvm use 0.10
+    # Set the node.js version to use with NVM
+    nvm use 0.10
+fi
 
 # increase the default open files limit
 ulimit -n 2048
