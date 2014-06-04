@@ -44,3 +44,4 @@
 	startover = reset -hard HEAD
 	fom = fetch origin master
 	rom = rebase origin/master
+    mnff = merge --no-ff
