@@ -1,16 +1,13 @@
 # Default PATH
 export PATH=/usr/local/git/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/Cellar
 
-# Add RVM to PATH for scripting
-PATH=$PATH:$HOME/.rvm/bin
-
 # Load RVM into a shell session *as a function*
-if [ -f "$HOME/.rvm/scripts/rvm" ]; then
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# if [ -f "$HOME/.rvm/scripts/rvm" ]; then
+#     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
     # Set the Ruby version to use (because the default doesn't seem to be "sticking" for some reason)
-    rvm use 1.9.3
-fi
+#     rvm use 1.9.3
+# fi
 
 # Load NVM into a shell session *as a function*
 if [ -f "$HOME/.nvm/nvm.sh" ]; then

@@ -19,6 +19,8 @@
 	nobranch = red bold
 [core]
 	excludesfile = ~/.gitignore
+	autocrlf = input
+	editor = atom --wait
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
@@ -45,3 +47,11 @@
 	fom = fetch origin master
 	rom = rebase origin/master
     mnff = merge --no-ff
+	mffo = merge --ff-only
+	fp = push --force
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[branch]
+	autosetuprebase = always
