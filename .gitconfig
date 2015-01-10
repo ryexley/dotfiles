@@ -40,7 +40,7 @@
 	br = branch
 	co = checkout
 	dt = difftool
-	lg = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	lg = log --pretty=format:'%Cred%h%C(yellow)%d%Creset - %s %Cgreen(%cr) %C(blue)%an%Creset'
 	standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author 'Bob Yexley'
 	pullr = pull --rebase
 	startover = reset -hard HEAD
