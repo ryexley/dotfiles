@@ -19,8 +19,8 @@
 	nobranch = red bold
 [core]
 	excludesfile = ~/.gitignore
+	editor = subl --wait
 	autocrlf = input
-	editor = atom --wait
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
@@ -37,7 +37,9 @@
 [alias]
 	st = status -sb
 	cam = commit -am
-	br = branch
+	b = branch
+	db = branch -D
+	crb = "!f() { git checkout -b $1 origin/$1 }"
 	co = checkout
 	dt = difftool
 	lg = log --pretty=format:'%Cred%h%C(yellow)%d%Creset - %s %Cgreen(%cr) %C(blue)%an%Creset'
@@ -55,3 +57,9 @@
 	smudge = git media smudge %f
 [branch]
 	autosetuprebase = always
+[push]
+	default = matching
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
