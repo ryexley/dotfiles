@@ -39,14 +39,6 @@ alias c="clear"
 alias hs="http-server" # node http-server : https://github.com/nodeapps/http-server
 
 # Project aliases
-alias oxy="cd ~/Projects/purdue/oxycontin/source/client-purdue-oxycontin"
-alias butr="cd ~/Projects/purdue/butrans/source"
-alias intm="cd ~/Projects/purdue/intermezzo/source/client-purdue-intermezzo"
-alias hem="cd ~/Projects/hemlock"
-alias hems="cd ~/Projects/hemlock/hemlock.server"
-alias hemc="cd ~/Projects/hemlock/hemlock.client"
-alias len="cd ~/Projects/appendto/lenovo/prototype-2"
-alias hub="cd ~/Projects/pitney-bowes/hubble"
 
 # Functions
 

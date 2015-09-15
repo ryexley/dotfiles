@@ -39,23 +39,10 @@ alias hs="http-server" # node http-server : https://github.com/nodeapps/http-ser
 alias renv=rbenv
 alias md2word=md2word # alias the function below
 alias srs="c && rails server -b 0.0.0.0" # start a rails server in the current directory, bound on all local interfaces
-alias start-postgres="postgres -D /usr/local/var/postgres"
+alias start-postgres="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
+alias stop-postgres="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log stop"
 
 # Project aliases
-alias oxy="cd ~/Projects/purdue/oxycontin/source/client-purdue-oxycontin"
-alias butr="cd ~/Projects/purdue/butrans/source"
-alias intm="cd ~/Projects/purdue/intermezzo/source/client-purdue-intermezzo"
-alias hem="cd ~/Projects/hemlock"
-alias hems="cd ~/Projects/hemlock/hemlock.server"
-alias hemc="cd ~/Projects/hemlock/hemlock.client"
-alias len="cd ~/Projects/appendto/lenovo/prototype-2"
-alias hub="cd ~/Projects/pitney-bowes/hubble"
-alias sd="cd ~/Projects/lampo/smartdollar-app"
-alias sdr="cd ~/Projects/lampo/smartdollar-report"
-alias sdru="cd ~/Projects/lampo/smartdollar-report-ui"
-alias ltsd="'lt' --port 3000 --subdomain sdlocal"
-alias ngsd="ngrok -subdomain=rysd 3000"
-alias ngsdru="ngrok -subdomain=rysdru 7000"
 
 # Functions
 
