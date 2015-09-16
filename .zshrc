@@ -1,10 +1,8 @@
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [[ -s "${ZDOTDIR:-$HOME}/.dotfiles/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.dotfiles/.zprezto/init.zsh"
 fi
 
 # increase the default open files limit
@@ -13,9 +11,9 @@ ulimit -n 2048
 function fxv () {
     echo
     echo Node $(node -v)
-    ruby -v
-    rails -v
-    elixir -v
+    # ruby -v
+    # rails -v
+    # elixir -v
     echo
 }
 
@@ -27,7 +25,7 @@ if [ -f "$HOME/.nvm/nvm.sh" ]; then
     nvm use default
 fi
 
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # list framework versions
 fxv
