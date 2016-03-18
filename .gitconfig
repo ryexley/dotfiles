@@ -21,10 +21,12 @@
 	excludesfile = ~/.gitignore
 	editor = subl --wait
 	autocrlf = input
+	pager = "diff-so-fancy | less --tabs=4 -RFX"
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
 	tool = Kaleidoscope
+	compactionHeuristic = true
 [difftool]
 	prompt = false
 [mergetool "Kaleidoscope"]
@@ -35,6 +37,8 @@
 [merge]
 	tool = Kaleidoscope
 [alias]
+	branch-name = "!git rev-parse --abbrev-ref HEAD"
+	mergeup = "!git merge upstream/$(git branch-name) --ff-only"
 	st = status -sb
 	cam = commit -am
 	b = branch
@@ -46,11 +50,18 @@
 	standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author 'Bob Yexley'
 	pullr = pull --rebase
 	startover = reset -hard HEAD
+	search = grep -n --color
 	fom = fetch origin master
 	rom = rebase origin/master
-    mnff = merge --no-ff
+  mnff = merge --no-ff
 	mffo = merge --ff-only
 	fp = push --force
+	fa = fetch --all --prune
+	pr  = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/merge:pr/$1 && git checkout pr/$1; }; f"
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+	list-tags = "!git tag | xargs -I@ git log --format=format:\"%ai @%n\" -1 @ | sort | awk '{print $4}'"
+	dlc = diff HEAD~2
+	lpr = "!git tag --sort=v:refname | grep -"
 [filter "media"]
 	required = true
 	clean = git media clean %f

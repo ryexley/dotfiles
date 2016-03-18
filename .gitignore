@@ -8,3 +8,7 @@
 .anvil
 .com.apple.timemachine.supported
 .zprezto
+.nyc_output
+.vscode
+.idea
+yarn.lock
