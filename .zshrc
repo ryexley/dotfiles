@@ -1,6 +1,9 @@
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
+export PATH=/usr/local/bin:/usr/local/lib:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
 export PATH="$HOME/.nvm/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin" # go lang path
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
 export EDITOR=$(which subl)
 # export GOPATH="$HOME/projects"
 
@@ -14,11 +17,11 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # increase the default open files limit
-ulimit -n 2048
+ulimit -n 20000
 
 function fxv () {
     echo
-    # ruby -v
+    ruby -v
     # rails -v
     elixir -v
     echo Node $(node -v)
@@ -33,6 +36,15 @@ if [ -f "$HOME/.nvm/nvm.sh" ]; then
    # Explicitly set the node.js version to use with NVM if no .nvmrc is present (which it should be)
    # nvm use default
 fi
+
+# https://rvm.io/integration/zsh
+# fixes pure prompt issues with rvm
+unsetopt auto_name_dirs
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # autoload new node version when changing into a directory in which an .nvmrc file is found
 autoload -U add-zsh-hook
@@ -80,21 +92,22 @@ pgdir () {
 # Aliases
 alias ll="ls -la"
 alias c="clear"
-alias hs="http-server -p 7777" # node http-server : https://github.com/nodeapps/http-server
-alias renv=rbenv
 alias md2word=md2word # alias the function below
 alias vcc="open ./coverage/lcov-report/index.html"
 alias reset="clear && source ~/.zshrc"
-alias "disable-sinopia"="mv ~/.npmrc ~/.npmrcx && echo 'Sinopia temporarily disabled (~/.npmrc renamed to ~/.npmrcx)'"
-alias "enable-sinopia"="mv ~/.npmrcx ~/.npmrc && echo 'Sinopia re-enabled (~/.npmrcx renamed to ~/.npmrc)'"
 alias vs="code"
+
+# git aliases
+alias gfo="git fetch origin"
+alias gmom="git merge origin/master"
+alias grom="git rebase origin/master"
 
 # random aliases
 alias rcli="clear && create-react-app"
 alias riam="open ~/projects/ryexley/poplar/build/WemoMenubarController-darwin-x64/WemoMenubarController.app"
 
 # node/npm aliases
-alias cnmi="clear && npm set progress=true && rm -rf node_modules && time npm install && say node modules installation complete"
+alias cnmi="clear && rm -rf node_modules && mkdir node_modules && touch node_modules/.metadata_never_index && npm set progress=true && time npm install && say node modules installation complete"
 alias nt="clear && npm run test && say test run complete"
 alias nom="npm"
 alias nd="clear && node-dev"
@@ -107,47 +120,34 @@ alias nls="clear && npm ls"
 alias nln="clear && npm link"
 alias nup="clear && npm install && npm update"
 alias links="clear && link-status -s -p"
+alias yr="clear && yarn run"
 
 # Service aliases
-alias srs="c && rails server -b 0.0.0.0" # start a rails server in the current directory, bound on all local interfaces
-alias start-pg="pg_ctl -w -D $(pgdir) -l $(pgdir)/server.log start"
-alias stop-pg="pg_ctl -D $(pgdir) -l $(pgdir)/server.log stop"
-alias start-rethinkdb="rethinkdb --directory rethinkdb-data --server-name phoenix --http-port 7070"
-alias start-redis="redis-server"
-alias start-rabbit="rabbitmq-server"
-alias lkds-up="clear && startLeankitDevServer"
-alias lkds-down="clear && stopLeankitDevServer"
-alias lkds-config="subl ~/projects/leankit/lks/config.json"
-alias clean-deps="npm set progress=true && rm -rf node_modules && time npm install"
-alias clean-lk-deps="npm set progress=true && rm -rf node_modules/@lk && time npm install"
-alias clean-deps-quiet="npm set progress=false && rm -rf node_modules && time npm install"
-alias clean-lk-deps-quiet="npm set progress=false && rm -rf node_modules/@lk && time npm install"
-alias cnsrepl="LK_SQL_DATABASE=Dogfood node ~/projects/leankit/core-node-sql/repl"
-alias cleanup-docker-images="docker rmi $(docker images | grep '<none>' | awk '{print $3}')"
 alias what-changed="git diff HEAD~2"
+
+# Project aliases
+alias rungf="GAP_DC=localhost npm run server"
+
+source ~/.ryexley.private.zsh
 
 # Project aliases
 
 # Functions
 
-function startLeankitDevServer() {
-    local CURRENT_DIR
-    CURRENT_DIR=$(pwd)
-    # cd ~/projects/leankit/lks
-    # ./lks start
-    lks
-    cd $CURRENT_DIR
-    unset CURRENT_DIR
-}
-
-function stopLeankitDevServer() {
-    local CURRENT_DIR
-    CURRENT_DIR=$(pwd)
-    # cd ~/projects/leankit/lks
-    # ./lks halt
-    lks stop
-    cd $CURRENT_DIR
-    unset CURRENT_DIR
+# wrap git with a handler to switch the email address it uses for personal projects
+# (will use the configured default email address from ~/.gitconfig by default)
+function git() {
+  case "$PWD" in
+    $HOME/projects/ryexley/*)
+      command git -c user.email=bob@yexley.net "$@"
+      ;;
+    $HOME/projects/sparkbox/gap/*)
+      command git -c user.email=bob_yexley@gap.com -c user.signingkey=2AD022C1 "$@"
+      ;;
+    *)
+      command git "$@"
+      ;;
+  esac
 }
 
 function mkcd() {
@@ -172,15 +172,3 @@ function md2word () {
         echo "Pandoc is not installed. Unable to convert document."
     fi
 }
-
-# vs () {
-#     if [[ $# = 0 ]]
-#     then
-#         open -a "Visual Studio Code"
-#     else
-#         [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./ -n}"
-#         open -a "Visual Studio Code" --args "$F"
-#     fi
-# }
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

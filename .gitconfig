@@ -1,6 +1,10 @@
 [user]
 	name = Bob Yexley
-	email = bob@yexley.net
+	email = bob@heysparkbox.com
+	signingkey = 5567B799
+[commit]
+	gpgsign = true
+	template = /Users/ryexley/projects/sparkbox/standard/code-style/git/.gitmessage
 [color]
 	diff = auto
 	status = auto
@@ -47,15 +51,16 @@
 	co = checkout
 	dt = difftool
 	lg = log --pretty=format:'%Cred%h%C(yellow)%d%Creset - %s %Cgreen(%cr) %C(blue)%an%Creset'
+	lgnm = log --pretty=format:'%Cred%h%C(yellow)%d%Creset - %s %Cgreen(%cr) %C(blue)%an%Creset' --no-merges
 	standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author 'Bob Yexley'
 	pullr = pull --rebase
 	startover = reset -hard HEAD
 	search = grep -n --color
 	fom = fetch origin master
 	rom = rebase origin/master
-  mnff = merge --no-ff
+  	mnff = merge --no-ff
 	mffo = merge --ff-only
-	fp = push --force
+	fp = push --force-with-lease
 	fa = fetch --all --prune
 	pr  = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/merge:pr/$1 && git checkout pr/$1; }; f"
 	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
@@ -74,3 +79,7 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+[secrets]
+	providers = /Users/ryexley/projects/sparkbox/secrets/provider.js
+[init]
+	templateDir = /Users/ryexley/.git-template
