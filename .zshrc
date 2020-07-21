@@ -1,6 +1,9 @@
+export GOPATH=$HOME/projects/go
+export GOBIN=$HOME/projects/go/bin
+
 export PATH=/usr/local/bin:/usr/local/lib:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
 export PATH="$HOME/.nvm/bin:$PATH"
-export PATH="$PATH:/usr/local/go/bin" # go lang path
+export PATH="$PATH:$GOPATH:$GOBIN"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -12,9 +15,16 @@ if [[ -s "${ZDOTDIR:-$HOME}/.dotfiles/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.dotfiles/.zprezto/init.zsh"
 fi
 
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+
 # pure prompt
 autoload -U promptinit; promptinit
 prompt pure
+# PROMPT='%(?.%F{green}↟↟ %F{magenta}↠.%F{red}ಠ_ಠ)%f '
+PROMPT='%(?.%F{green}↟↟↟↟.%F{red}ಠ_ಠ)%f '
 
 # increase the default open files limit
 ulimit -n 20000
@@ -96,6 +106,9 @@ alias md2word=md2word # alias the function below
 alias vcc="open ./coverage/lcov-report/index.html"
 alias reset="clear && source ~/.zshrc"
 alias vs="code"
+alias dc="clear && docker-compose"
+alias dps="clear && docker ps"
+alias chrome-no-cors="clear && /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  --user-data-dir='/Users/ryexley/Applications/chrome-no-cors' &>/dev/null &"
 
 # git aliases
 alias gfo="git fetch origin"
@@ -120,6 +133,7 @@ alias nls="clear && npm ls"
 alias nln="clear && npm link"
 alias nup="clear && npm install && npm update"
 alias links="clear && link-status -s -p"
+alias yi="clear && yarn install"
 alias yr="clear && yarn run"
 
 # Service aliases
@@ -127,8 +141,6 @@ alias what-changed="git diff HEAD~2"
 
 # Project aliases
 alias rungf="GAP_DC=localhost npm run server"
-
-source ~/.ryexley.private.zsh
 
 # Project aliases
 
@@ -141,8 +153,8 @@ function git() {
     $HOME/projects/ryexley/*)
       command git -c user.email=bob@yexley.net "$@"
       ;;
-    $HOME/projects/sparkbox/gap/*)
-      command git -c user.email=bob_yexley@gap.com -c user.signingkey=2AD022C1 "$@"
+    $HOME/projects/ampx/*)
+      command git -c user.email=bob.yexley@kxvlsoftware.com "$@"
       ;;
     *)
       command git "$@"
@@ -171,4 +183,10 @@ function md2word () {
     else
         echo "Pandoc is not installed. Unable to convert document."
     fi
+}
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+dcleanup(){
+  docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+  docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
