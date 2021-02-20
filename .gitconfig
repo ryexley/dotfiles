@@ -1,9 +1,11 @@
 [user]
 	name = Bob Yexley
 	email = bob@yexley.net
-	signingkey = 4A30EECE
+	signingkey = 609C770828E5891FEFE1C7071C29F7E2FF12F0FB
 [commit]
 	gpgsign = true
+[tag]
+  # gpgsign = true
 [color]
 	diff = auto
 	status = auto

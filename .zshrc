@@ -3,12 +3,14 @@ export GOBIN=$HOME/projects/go/bin
 
 export PATH=/usr/local/bin:/usr/local/lib:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
 export PATH="$HOME/.nvm/bin:$PATH"
+export PATH="$HOME/.asdf/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:$GOPATH:$GOBIN"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 export EDITOR=$(which subl)
-# export GOPATH="$HOME/projects"
+export GOPATH="$HOME/projects"
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.dotfiles/.zprezto/init.zsh" ]]; then
@@ -25,6 +27,12 @@ autoload -U promptinit; promptinit
 prompt pure
 # PROMPT='%(?.%F{green}↟↟ %F{magenta}↠.%F{red}ಠ_ಠ)%f '
 PROMPT='%(?.%F{green}↟↟↟↟.%F{red}ಠ_ಠ)%f '
+
+# source and init asdf version manager
+. /usr/local/opt/asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+autoload -Uz compinit
+compinit
 
 # increase the default open files limit
 ulimit -n 20000
@@ -153,8 +161,8 @@ function git() {
     $HOME/projects/ryexley/*)
       command git -c user.email=bob@yexley.net "$@"
       ;;
-    $HOME/projects/ampx/*)
-      command git -c user.email=bob.yexley@kxvlsoftware.com "$@"
+    $HOME/projects/aoeu/*)
+      command git -c user.email=bobyexley@theartofeducation.edu "$@"
       ;;
     *)
       command git "$@"
@@ -190,3 +198,6 @@ dcleanup(){
   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
   docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
+
+export YVM_DIR=/usr/local/opt/yvm
+[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
